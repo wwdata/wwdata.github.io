@@ -1,8 +1,5 @@
-/* 注意
-
-*/
-/*表示系課題メモ
-・情報ウィンドウ操作、ソースが3つあるのを効率的にできないか？
+/*
+javascript:function loadScript(sU)%7Bvar d=document;if(d.getElementById('debagBar'))%7Bd.body.removeChild(document.getElementById('debagBar'));%7Dvar div=d.createElement('div');div.setAttribute('id','debagBar');d.body.appendChild(div);var sE=d.createElement('SCRIPT');sE.setAttribute('src',sU);sE.setAttribute('charset','UTF-8');div.appendChild(sE);%7DloadScript('https://suteki-discovery.work/bm/base.js?x='+Math.floor(Math.random()*1000000000));
 */
 
 /* ---------------------------------------------
@@ -613,14 +610,3 @@ function ngTooltip(ID,html){
   datO.innerHTML = value;
   ele.parentNode.appendChild(datO);
 }
-
-/* ---------------------------------------------
-bookマークレット保管
---------------------------------------------- */
-/*
-https://checkdemo.web-works.ne.jp/debag/
-http://localhost:8080/debag/
-*/
-/*
-javascript:function loadScript(sU){var d=document;if(d.getElementById('debagBar')){d.body.removeChild(document.getElementById('debagBar'));}var div=d.createElement('div');div.setAttribute('id','debagBar');d.body.appendChild(div);var sE=d.createElement('SCRIPT');sE.setAttribute('src',sU);sE.setAttribute('charset','UTF-8');div.appendChild(sE);}loadScript('https://checkdemo.web-works.ne.jp/debag/base.js?x='+Math.floor(Math.random()*1000000000));
-*/
