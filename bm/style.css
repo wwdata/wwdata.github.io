@@ -1,0 +1,551 @@
+@charset "utf-8";
+
+/* ----- common ----- */
+body{
+margin-left:0;
+}
+
+#debagBar form, #debagBarSub form,
+#debagBar ul, #debagBar li,
+#debagBarSub ul, #debagBarSub li,
+#debagBarSetupInner ul, #debagBarSetupInner li {
+list-style: none;
+margin:0;
+padding:0;
+}
+
+#debagBarMain li, #debagBarSub li, #debagBarSetupInner li {
+display: inline-block;
+margin:3px 5px 3px  0;
+padding:0 10px 0 0;
+border-right:1px solid #bbb;
+}
+
+#debagBarMain li input, #debagBarSub li input, #debagBarSetupInner li input {
+margin-right:6px;
+vertical-align: middle;
+}
+
+#debagBarMain li label,
+#debagBarSub li label,
+#debagBarSetupInner li label,
+#debagBarSub .ngTooltip,
+#debagBarInfo #infoTable th, #debagBarInfo #infoTable td,
+#debagBarInfoL #infoTableL th, #debagBarInfoL #infoTableL td,
+#debagBarInfoSS #infoTable td,
+#debagBarInfo .infoHead p,
+#debagBarInfoL .infoHead p,
+#debagBarInfoSS .infoHead p,
+#debagBarSetupInner,
+#debagBarSetupInner p,
+#debagBarInfo .infoHead li,
+#debagBarInfoL .infoHead li,
+div.checkValue {
+font-family:'Lucida Grande','Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3',Meiryo, メイリオ, sans-serif !important;
+}
+
+#debagBarMain li label, #debagBarSub li label, #debagBarSetupInner li label {
+margin:0;
+padding:0;
+cursor: pointer;
+}
+
+.cautions_red {
+color:#cc0000;
+font-weight:bold;
+}
+
+/* ----- main ----- */
+#debagBar {
+position: fixed;
+bottom: 0;
+width: 100%;
+z-index: 1000200 !important;
+border-top:1px solid #bbb;
+background:#eee;
+font-size:14px;
+line-height:1.2em;
+color:#000;
+text-align: left;
+box-shadow:0 -2px 4px rgba(0,0,0,0.1);
+}
+
+#debagBarMain {
+padding:7px 20px;
+}
+
+#debagBarMain .setup {
+position: absolute;
+top:5px;
+right:35px;
+cursor: pointer;
+}
+
+#debagBarMain .close {
+position: absolute;
+top:5px;
+right:5px;
+cursor: pointer;
+margin:0;
+padding:0;
+background:none;
+}
+
+/* ----- sub ----- */
+#debagBarSub {
+position: fixed;
+bottom: 35px;
+width: 100%;
+z-index: 1000100 !important;
+border-top:1px solid #bbb;
+background:#ddd;
+font-size:11px;
+line-height:1.2em;
+color:#000;
+text-align: left;
+box-shadow:0 -2px 4px rgba(0,0,0,0.1);
+}
+
+#debagBarSubMain {
+padding:7px 20px;
+}
+
+#debagBarSub .close {
+position: absolute;
+top:5px;
+right:5px;
+cursor: pointer;
+}
+
+#debagBarSub label {
+position: relative;
+}
+
+#debagBarSub .ngTooltip {
+position: absolute;
+top: -15px;
+left:6px;
+width:20px;
+padding:2px 1px;
+text-align:center;
+font-size:10px;
+line-height:1.1em;
+color:#fff;
+}
+#debagBarSub .ngTooltipOK{background: #0099FF;}
+#debagBarSub .ngTooltipNG{background: #ff3399;}
+#debagBarSub .ngTooltipDoubt{background: #ea8400;}
+
+#debagBarSub .ngTooltip:after {
+content: '';
+position: absolute;
+border-right: 7px solid transparent;
+border-left: 7px solid transparent;
+bottom: -7px;
+left: 5px;
+}
+#debagBarSub .ngTooltipOK:after{border-top: 10px solid #0099FF;}
+#debagBarSub .ngTooltipNG:after{border-top: 10px solid #ff3399;}
+#debagBarSub .ngTooltipDoubt:after{border-top: 10px solid #ea8400;}
+
+/* ----- info ----- */
+#debagBarInfo, #debagBarInfoL, #debagBarInfoSS {
+position: fixed;
+overflow: hidden;
+resize: both;
+top:20px;
+left:20px;
+padding:7px 7px 0 7px;
+z-index: 1000010;
+background-color:rgba(0,0,0,0.4);
+font-size:12px;
+line-height:1.4em;
+color:#000;
+text-align: left;
+box-shadow:3px 3px 4px rgba(0,0,0,0.2);
+resize:both;
+}
+
+#debagBarInfo {
+width: 680px;
+}
+
+#debagBarInfo .debagBarInfoInner, #debagBarInfoL .debagBarInfoInner, #debagBarInfoSS .debagBarInfoInner {
+overflow-y : scroll;
+}
+
+#debagBarInfo #infoTable, #debagBarInfoSS #infoTable {
+width: 100%;
+margin:0;
+background:#fff;
+border-collapse:collapse;
+}
+
+#debagBarInfo #infoTable th, #debagBarInfo #infoTable td,
+#debagBarInfoSS #infoTable td {
+border:1px solid #bbb;
+padding:5px;
+font-size:12px;
+color:#000;
+word-break: break-all;
+}
+
+#debagBarInfo #infoTable th {
+text-align: left;
+font-weight:bold;
+vertical-align: top;
+}
+
+#debagBarInfo #infoTable th {
+width:100px;
+background:#ECFCFF;
+}
+
+#debagBarInfo .infoHead, #debagBarInfoL .infoHead, #debagBarInfoSS .infoHead {
+height:24px;
+margin-left:1px;
+border-left:1px solid #fff;
+cursor:move;
+}
+#debagBarInfo .infoHeadbtm, #debagBarInfoL .infoHeadbtm, #debagBarInfoSS .infoHeadbtm {
+height:15px;
+cursor:move;
+}
+#debagBarInfo .infoHeadbtm2, #debagBarInfoL .infoHeadbtm2, #debagBarInfoSS .infoHeadbtm2 {
+display:none;
+height:7px;
+}
+
+#debagBarInfo .infoHead p, #debagBarInfoL .infoHead p, #debagBarInfoSS .infoHead p {
+float: left;
+margin:0 15px 0 0;
+padding:0;
+color:#fff;
+text-shadow:1px 1px 1px #333;
+}
+#debagBarInfo .infoHead ul, #debagBarInfo .infoHead li,
+#debagBarInfoL .infoHead ul, #debagBarInfoL .infoHead li {
+margin:0;
+padding:0;
+list-style:none;
+}
+#debagBarInfo .infoHead li, #debagBarInfoL .infoHead li {
+float: left;
+height:19px;
+padding:3px 10px 0;
+border-top:1px solid #fff;
+border-right:1px solid #fff;
+border-bottom:1px solid #fff;
+background:rgba(0, 0, 0, 0.4);
+color:#fff;
+text-shadow:1px 1px 1px #333;
+cursor: pointer;
+}
+#debagBarInfo .infoHead li.active, #debagBarInfoL .infoHead li.active {
+background:#fff;
+color:#000;
+text-decoration: none;
+text-shadow:none;
+cursor:move;
+}
+#debagBarInfo .infoHead span, #debagBarInfoL .infoHead span {
+color:#fff;
+text-decoration: underline;
+cursor: pointer;
+}
+#debagBarInfo .close, #debagBarInfoL .close, #debagBarInfoSS .close {
+position: absolute;
+top:0px;
+right:5px;
+cursor: pointer;
+margin:0;
+padding:0;
+background:none;
+}
+#debagBarInfo .kaihei, #debagBarInfoL .kaihei, #debagBarInfoSS .kaihei {
+position: absolute;
+top:0px;
+right:32px;
+cursor: pointer;
+}
+#debagBarInfo .kaihei .kai, #debagBarInfoL .kaihei .kai, #debagBarInfoSS .kaihei .kai {display:none;}
+
+#infoTable hr {
+display: block;
+height: 1px;
+margin:3px 0;
+border:none;
+background:#ccc;
+}
+
+/* ----- info SS ----- */
+#debagBarInfoSS {
+left:720px;
+width:250px;
+/*max-height:300px;*/
+}
+#debagBarInfoSS .infoHead {
+height: 20px;
+border-left:none;
+}
+
+/* ----- info tag ----- */
+#debagBarInfo #infoTable.tag th {
+width:170px;
+white-space: nowrap;
+}
+
+/* ----- info L ----- */
+#debagBarInfoL {
+width: 980px;
+}
+#debagBarInfoL .infoHead {
+border-left:none;
+}
+
+#debagBarInfoL .infoHead ul {
+float: left;
+margin: 0 15px 0 0;
+padding: 0;
+}
+
+#debagBarInfoL.debagBarInfoS {
+width: 680px;
+}
+
+#debagBarInfoL #infoTableL {
+width: 100%;
+margin:0;
+background:#fff;
+border-collapse:collapse;
+}
+
+#debagBarInfoL #infoTableL th, #debagBarInfoL #infoTableL td {
+border:1px solid #bbb;
+padding:5px;
+font-size:12px;
+color:#000;
+word-break: break-all;
+}
+
+#debagBarInfoL #infoTableL th {
+text-align: left;
+font-weight:bold;
+vertical-align: top;
+}
+
+/* ----- info NG ----- */
+#debagBarInfo #infoTable .OK {
+width:30px;
+font-weight:normal;
+color:#666;
+text-align: center;
+}
+#debagBarInfo #infoTable .NG {
+width:30px;
+background:#FFCCFF;
+font-weight:bold;
+color:#cc0000;
+text-align: center;
+}
+#debagBarInfo #infoTable .NG, #debagBarInfo #infoTable .Doubt {
+text-decoration:underline;
+cursor: pointer;
+}
+#debagBarInfoL #infoTableL .attrNG {
+background:#FFCCFF;
+font-weight:bold;
+color:#cc0000;
+}
+#debagBarInfo #infoTable .Doubt {
+width:30px;
+background:#ffec67;
+font-weight:bold;
+color:#903f01;
+text-align: center;
+}
+
+/* ----- info alt ----- */
+#debagBarInfoL.imgPanel .infoHead {
+border-left: 1px solid #FFFFFF;
+}
+#debagBarInfoL #infoTableL.alt th {
+width:400px;
+text-align:right;
+vertical-align: middle;
+background:#fff;
+}
+#debagBarInfoL #infoTableL.alt th:hover, #debagBarInfoL #infoTableL.alt_b th.hiddenImg:hover {
+background:#D0DFFF;
+cursor: pointer;
+}
+#debagBarInfoL #infoTableL.alt .hiddenImg {
+background:#d9d9d9;
+}
+#debagBarInfoL #infoTableL.alt_b th.hiddenImg{
+background:#262626;
+}
+#debagBarInfoL #infoTableL.alt td {
+width:540px;
+vertical-align: middle;
+}
+
+#debagBarInfoL #infoTableL.alt img, #debagBarInfoL #infoTableL .table1_top img{
+max-width: 400px;
+height: auto !important;
+}
+
+/* ----- info imgSize ----- */
+#debagBarInfoL #infoTableL.imgSize th {
+width:400px;
+text-align:right;
+vertical-align: middle;
+background:#fff;
+}
+#debagBarInfoL #infoTableL.imgSize th:hover{
+background:#D0DFFF;
+cursor: pointer;
+}
+#debagBarInfoL #infoTableL.imgSize .hiddenImg {
+background:#d9d9d9;
+}
+#debagBarInfoL #infoTableL.imgSize td {
+vertical-align: middle;
+font-size:11px;
+white-space: nowrap;
+}
+#debagBarInfoL #infoTableL.imgSize .sizeNg {
+background:#FFCCFF;
+}
+
+#debagBarInfoL #infoTableL.alt_b th{
+background:#000;
+}
+
+#debagBarInfoL #infoTableL.imgSize img {
+max-width: 400px;
+height: auto !important;
+}
+
+/* ----- info link ----- */
+#debagBarInfoL #infoTableL.link th {
+width:30%;
+text-align:right;
+vertical-align: middle;
+font-weight:normal;
+}
+#debagBarInfoL #infoTableL.link .href {
+width:60%;
+vertical-align: middle;
+}
+#debagBarInfoL #infoTableL.link .href:hover{
+background:#D0DFFF;
+cursor: pointer;
+}
+#debagBarInfoL #infoTableL.link .target {
+width:10%;
+text-align:center;
+vertical-align: middle;
+}
+#debagBarInfoL #infoTableL.link img {
+max-width: 278px;
+height: auto;
+}
+
+
+/* ----- setup ----- */
+#debagBarSetup {
+position: fixed;
+top:0;
+left:0;
+height:100%;
+width:100%;
+background:rgba(255,255,255,0.5);
+z-index:1001000 !important;
+}
+
+#debagBarSetupInner {
+position: relative;
+margin:10px;
+padding:10px;
+border:1px solid #ccc;
+background:#fff;
+text-align:left;
+font-size:11px;
+}
+
+#debagBarSetupInner .close {
+position: absolute;
+top:5px;
+right:5px;
+cursor: pointer;
+}
+
+#debagBarSetupInner p {
+margin-bottom:5px;
+}
+
+#debagBarSetupInner .st_btm {
+display:inline-block;
+margin:5px 5px 0px 0px;
+}
+
+/* ----- check ----- */
+div.checkValue {
+display: inline-block;
+width:auto !important;
+max-width: 500px;
+padding:2px 5px 1px !important;
+background:#ffff99 !important;
+border:1px solid #D9A300 !important;
+text-align: left !important;
+line-height:1.2em !important;
+font-size:12px !important;
+font-weight:normal !important;
+color:#000 !important;
+word-break: break-all;
+z-index: 10000 !important;
+}
+
+div.checkValue_ng2 {
+border:1px solid #CC0000 !important;
+background: #FFCCFF !important;
+color: #CC0000 !important;
+font-weight: bold !important;
+}
+
+.checkValue_emptyTag_c{
+border:4px solid red;
+background: #FFCCFF !important;
+width:15px;
+height:15px;
+}
+
+div.checkValue_blank {
+display:block;
+position: absolute;
+margin-top: -10px !important;
+background:rgba(0,0,153,0.4) !important;
+border:1px solid #333 !important;
+font-size:12px !important;
+font-size:11px !important;
+font-weight:bold !important;
+color:#fff !important;
+text-shadow:1px 1px 1px #000;
+}
+
+.checkValueOv{
+outline:2px dashed red !important;
+}
+
+.checkValue_kana, .checkValue_dummyText {
+outline:2px dashed red !important;
+background:rgba(255,255,0,0.7) !important;
+background:yellow\9 !important;
+}
+
+/* ----- domTemp ----- */
+#domTemp{
+display:none;
+}
+
