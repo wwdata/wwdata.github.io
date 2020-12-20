@@ -40,11 +40,7 @@
   // 「スタートボタン」を押下したら、getUserMedia を使って映像を「映像表示エリア」に表示してね。
   $start.addEventListener('click', () => {
     navigator.mediaDevices.getUserMedia({
-      video: {
-    facingMode: {
-      exact: "environment"
-    }
-  }, audio: false
+      video: true, audio: false
     })
       .then(stream => $video.srcObject = stream, $video.play())
       .catch(err => alert(`${err.name} ${err.message}`));
