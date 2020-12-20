@@ -1,65 +1,80 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Camera Test</title>
-  <style>
-  canvas, video{
-    border: 1px solid gray;
-  }
-  </style>
+<meta charset="UTF-8">
+<title>Camera Test</title>
+<style>
+#camera {
+	width: 400px;
+	height: 300px;
+}
+
+#img {
+	width: 400px;
+	height: 300px;
+}
+</style>
 </head>
 <body>
 
-<h1>HTML5カメラ</h1>
-
-<video id="camera" width="300" height="200"></video>
-<canvas id="picture" width="300" height="200"></canvas>
-<form>
-  <button type="button" id="shutter">シャッター</button>
-</form>
-
+<h2>Video</h2>
+	<h2>Video</h2>
+	<video id="camera" autoplay></video>
+	<button id="start">start</button>
+	<h2>Canvas</h2>
+	<canvas id="canvas"></canvas>
+	<h2>Img</h2>
+	<img id="img">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script>
-window.onload = () => {
-  const video  = document.querySelector("#camera");
-  const canvas = document.querySelector("#picture");
+$(function() {
+	//videoタグを取得
+	var video = document.getElementById('camera');
+	//カメラが起動できたかのフラグ
+	var localMediaStream = null;
+	//カメラ使えるかチェック
+	var hasGetUserMedia = function() {
+		return (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+	};
 
-  /** カメラ設定 */
-  const constraints = {
-    audio: false,
-    video: {
-      width: 300,
-      height: 200,
-      //facingMode: "user"   // フロントカメラを利用する
-      facingMode: { exact: "environment" }  // リアカメラを利用する場合
-    }
-  };
+	//エラー
+	var onFailSoHard = function(e) {
+		console.log('エラー!', e);
+	};
 
-  /**
-   * カメラを<video>と同期
-   */
-  navigator.mediaDevices.getUserMedia(constraints)
-  .then( (stream) => {
-    video.srcObject = stream;
-    video.onloadedmetadata = (e) => {
-      video.play();
-    };
-  })
-  .catch( (err) => {
-    console.log(err.name + ": " + err.message);
-  });
+	if(!hasGetUserMedia()) {
+		alert("未対応ブラウザです。");
+	} else {
+		window.URL = window.URL || window.webkitURL;
+		navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+		navigator.getUserMedia({video: true}, function(stream) {
+			video.src = window.URL.createObjectURL(stream);
+			localMediaStream = stream;
+		}, onFailSoHard);
+	}
 
-  /**
-   * シャッターボタン
-   */
-   document.querySelector("#shutter").addEventListener("click", () => {
-    const ctx = canvas.getContext("2d");
+	$("#start").click(function() {
+		if (localMediaStream) {
+			var canvas = document.getElementById('canvas');
+			//canvasの描画モードを2sに
+			var ctx = canvas.getContext('2d');
+			var img = document.getElementById('img');
 
-    // canvasに画像を貼り付ける
-    console.log(ctx);
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-  });
-};
+			//videoの縦幅横幅を取得
+			var w = video.offsetWidth;
+			var h = video.offsetHeight;
+
+			//同じサイズをcanvasに指定
+			canvas.setAttribute("width", w);
+			canvas.setAttribute("height", h);
+
+			//canvasにコピー
+			ctx.drawImage(video, 0, 0, w, h);
+			//imgにpng形式で書き出し
+			img.src = canvas.toDataURL('image/png');
+		}
+	});
+});
 </script>
 </body>
 </html>
