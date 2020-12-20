@@ -55,17 +55,15 @@
     var cci = canvas_capture_image.getContext('2d');
     var va = document.getElementById('video_area');
 
-    isData.push(cci);
-
-    console.log(isData)
-
     canvas_capture_image.width = va.videoWidth;
     canvas_capture_image.height = va.videoHeight;
     cci.drawImage(va, 0, 0);  // canvasに『「静止画取得」ボタン』押下時点の画像を描画。
 
     canvas_capture_image.toBlob(function(blob) {
+      isData.push(blob);
+      console.log(isData)
       var img = document.getElementById('image');
-      img.src = window.URL.createObjectURL(blob);
+      img.src = window.URL.createObjectURL(isData[0]);
     }, 'image/jpeg', 0.95);
   }
 
