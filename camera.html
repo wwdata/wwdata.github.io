@@ -1,80 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Camera Test</title>
-<style>
-#camera {
-	width: 400px;
-	height: 300px;
-}
-
-#img {
-	width: 400px;
-	height: 300px;
-}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>getUserMedia-Demo</title>
 </head>
 <body>
 
-<h2>Video</h2>
-	<h2>Video</h2>
-	<video id="camera" autoplay></video>
-	<button id="start">start</button>
-	<h2>Canvas</h2>
-	<canvas id="canvas"></canvas>
-	<h2>Img</h2>
-	<img id="img">
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script>
-$(function() {
-	//videoタグを取得
-	var video = document.getElementById('camera');
-	//カメラが起動できたかのフラグ
-	var localMediaStream = null;
-	//カメラ使えるかチェック
-	var hasGetUserMedia = function() {
-		return (navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
-	};
+    <!-- カメラ映像が描画されます。 -->
+    <video id="video_area" style="background-color: #000" autoplay></video>
 
-	//エラー
-	var onFailSoHard = function(e) {
-		console.log('エラー!', e);
-	};
+    <!-- 押下するとカメラ映像描画を開始します。 -->
+    <button id="start_btn">映像表示開始</button>
 
-	if(!hasGetUserMedia()) {
-		alert("未対応ブラウザです。");
-	} else {
-		window.URL = window.URL || window.webkitURL;
-		navigator.mediaDevices.getUserMedia  = navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-		navigator.mediaDevices.getUserMedia({video: true}, function(stream) {
-			video.src = window.URL.createObjectURL(stream);
-			localMediaStream = stream;
-		}, onFailSoHard);
-	}
+    <!-- 押下するとカメラ映像から静止画をキャプチャします。 -->
+    <button onclick="copyFrame()">静止画取得</button>
 
-	$("#start").click(function() {
-		if (localMediaStream) {
-			var canvas = document.getElementById('canvas');
-			//canvasの描画モードを2sに
-			var ctx = canvas.getContext('2d');
-			var img = document.getElementById('img');
+    <!-- キャプチャした静止画が描画されます。 -->
+    <canvas id="capture_image"></canvas>
 
-			//videoの縦幅横幅を取得
-			var w = video.offsetWidth;
-			var h = video.offsetHeight;
-
-			//同じサイズをcanvasに指定
-			canvas.setAttribute("width", w);
-			canvas.setAttribute("height", h);
-
-			//canvasにコピー
-			ctx.drawImage(video, 0, 0, w, h);
-			//imgにpng形式で書き出し
-			img.src = canvas.toDataURL('image/png');
-		}
-	});
-}); 
-</script>
 </body>
+<script>
+
+    // getUserMedia が使えないときは、『getUserMedia()が利用できないブラウザです！』と言ってね。
+    if (typeof navigator.mediaDevices.getUserMedia !== 'function') {
+        const err = new Error('getUserMedia()が利用できないブラウザです！');
+        alert(`${err.name} ${err.message}`);
+        throw err;
+    }
+
+    // 操作する画面エレメント変数定義します。
+    const $start = document.getElementById('start_btn');   // スタートボタン
+    const $video = document.getElementById('video_area');  // 映像表示エリア
+
+    // 「スタートボタン」を押下したら、getUserMedia を使って映像を「映像表示エリア」に表示してね。
+    $start.addEventListener('click', () => {
+        navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+        .then(stream => $video.srcObject = stream)
+        .catch(err => alert(`${err.name} ${err.message}`));
+    }, false);
+
+
+    // 「静止画取得」ボタンが押されたら「<canvas id="capture_image">」に映像のコマ画像を表示します。
+    function copyFrame() {
+
+        var canvas_capture_image = document.getElementById('capture_image');
+        var cci = canvas_capture_image.getContext('2d');
+        var va = document.getElementById('video_area');
+
+        canvas_capture_image.width  = va.videoWidth;
+        canvas_capture_image.height = va.videoHeight;
+        cci.drawImage(va, 0, 0);  // canvasに『「静止画取得」ボタン』押下時点の画像を描画。
+    }
+
+
+</script>
+
 </html>
