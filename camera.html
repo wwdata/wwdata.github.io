@@ -40,7 +40,7 @@
   // 「スタートボタン」を押下したら、getUserMedia を使って映像を「映像表示エリア」に表示してね。
   $start.addEventListener('click', () => {
     navigator.mediaDevices.getUserMedia({
-      video: true, audio: false
+      video: {exact: "environment"}, audio: false
     })
       .then(stream => $video.srcObject = stream, $video.play())
       .catch(err => alert(`${err.name} ${err.message}`));
@@ -58,6 +58,8 @@
     canvas_capture_image.width = va.videoWidth;
     canvas_capture_image.height = va.videoHeight;
     cci.drawImage(va, 0, 0);  // canvasに『「静止画取得」ボタン』押下時点の画像を描画。
+
+    console.log(canvas_capture_image.toDataURL());
 
     canvas_capture_image.toBlob(function(blob) {
       isData.push(blob);
